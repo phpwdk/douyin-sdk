@@ -7,7 +7,7 @@ use ByteDance\Douyin\Model\VideoDataBody;
 
 class Video extends BaseApi
 {
-    public function video_data_api(array $videoDataBody, $openid, $access_token)
+    public function video_data_api($videoDataBody, $openid, $access_token)
     {
         $api = self::BASE_API . '/video/data/';
         $params = [
@@ -20,7 +20,7 @@ class Video extends BaseApi
 
     }
 
-    public function video_list_get(string $openid, string $access_token, int $pagesize, int $cursor = 0)
+    public function video_list_get($openid, $access_token, $pagesize, $cursor = 0)
     {
         $params = [
             'open_id' => $openid,

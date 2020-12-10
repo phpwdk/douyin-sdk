@@ -8,7 +8,7 @@ use ByteDance\Douyin\Kernel\BaseApi;
 
 class Toutiao extends BaseApi
 {
-    public function authorize(array $scope , string $redirect_url , $state =''){
+    public function authorize($scope , $redirect_url , $state =''){
         $api = self::BASE_TOUTIAO_API . '/oauth/authorize/';
         $params = [
             'client_key'    => $this->client_key,
