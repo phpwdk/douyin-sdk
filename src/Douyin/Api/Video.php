@@ -37,14 +37,12 @@ class Video extends BaseApi
      * @title 上传视频
      * @param $open_id
      * @param $access_token
+     * @param $file
      * @return Video
      */
-    public function video_upload($open_id, $access_token)
+    public function video_upload($open_id, $access_token, $file)
     {
-        $url = self::BASE_API . '/video/upload/';
-        $params = [
-            'open_id' => $open_id, 'access_token' => $access_token
-        ];
-        return $this->https_get($url, $params);
+        $url = self::BASE_API . '/video/upload/?open_id=' . $open_id . '&access_token=' . $access_token;
+        return $this->curl_upload_file($url, $file);
     }
 }
