@@ -1,6 +1,6 @@
 {
-    "name": "phpwdk/douyin_sdk",
-    "description": "字节跳动抖音开放平台",
+    "name": "phpwdk/douyin-sdk",
+    "description": "抖音开放平台SDK",
     "authors": [
         {
             "name": "汪登科",
@@ -8,11 +8,11 @@
         }
     ],
     "require": {
-        "php" : ">5.6"
+        "php": ">5.6"
     },
-    "autoload" : {
+    "autoload": {
         "psr-4": {
-            "ByteDance\\" : "src/"
+            "ByteDance\\": "src/"
         }
     }
 }

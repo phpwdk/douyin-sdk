@@ -1,2 +1,2 @@
-# douyin_sdk
+# douyin-sdk
 抖音SDK
