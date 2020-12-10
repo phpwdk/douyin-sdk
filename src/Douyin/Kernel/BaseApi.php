@@ -1,6 +1,4 @@
 <?php
-
-
 namespace ByteDance\Douyin\Kernel;
 use ByteDance\ApiExcepion;
 
@@ -50,7 +48,7 @@ class BaseApi
         $header = [
             'Accept:application/json' , 'Content-Type:application/json'
         ];
-        $this->response = $this->https_request($url , json_encode($data ) , $header);
+        $this->response = $this->https_request($url , json_encode($data) , $header);
 
         return $this;
     }

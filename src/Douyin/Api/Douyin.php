@@ -1,6 +1,4 @@
 <?php
-
-
 namespace ByteDance\Douyin\Api;
 use ByteDance\ApiExcepion;
 use ByteDance\Douyin\Kernel\BaseApi;
@@ -23,7 +21,6 @@ class Douyin extends BaseApi
         }
 
         return $api_url . '?' . http_build_query($params);
-
     }
 
     public function access_token($code)

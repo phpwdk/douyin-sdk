@@ -1,8 +1,5 @@
 <?php
-
-
 namespace ByteDance;
-
 
 use Throwable;
 
