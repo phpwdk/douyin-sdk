@@ -3,7 +3,7 @@ namespace ByteDance;
 
 class Api
 {
-    public function __construct($name , array $config)
+    public function init($name , array $config)
     {
         $name = ucfirst(strtolower($name));
         $application = "\\ByteDance\\Douyin\\Api\\{$name}";
