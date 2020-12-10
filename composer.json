@@ -1,0 +1,18 @@
+{
+    "name": "phpwdk/douyin_sdk",
+    "description": "字节跳动抖音开放平台",
+    "authors": [
+        {
+            "name": "汪登科",
+            "email": "support@402260.com"
+        }
+    ],
+    "require": {
+        "php" : ">5.6"
+    },
+    "autoload" : {
+        "psr-4": {
+            "ByteDance\\" : "src/"
+        }
+    }
+}
