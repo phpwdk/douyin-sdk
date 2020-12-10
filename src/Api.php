@@ -1,9 +1,9 @@
 <?php
 namespace ByteDance;
 
-class App
+class Api
 {
-    public static function make($name , array $config)
+    public function make($name , array $config)
     {
         $name = ucfirst(strtolower($name));
         $application = "\\ByteDance\\Douyin\\Api\\{$name}";
@@ -11,7 +11,7 @@ class App
         return new $application($config);
     }
 
-    public static function __callStatic($name, $arguments)
+    public function __callStatic($name, $arguments)
     {
         // TODO: Implement __callStatic() method.
         return self::make($name , ...$arguments);
