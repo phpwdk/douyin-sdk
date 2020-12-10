@@ -8,7 +8,7 @@ use Curl\Curl;
 
 class Douyin extends BaseApi
 {
-    public function connect(array $scope, string $redirect_url, string $state = '')
+    public function connect($scope, $redirect_url, $state = "")
     {
         $api_url = self::BASE_API . '/platform/oauth/connect/';
         $params = [
@@ -42,9 +42,9 @@ class Douyin extends BaseApi
     /**
      * 刷新access_token或续期不会改变refresh_token的有效期
      * @param $refresh_token
-     * @return Oauth
+     * @return Douyin
      */
-    public function refresh_token(string $refresh_token)
+    public function refresh_token($refresh_token)
     {
         $api_url = self::BASE_API . '/oauth/refresh_token/';
         $params = [
@@ -58,9 +58,9 @@ class Douyin extends BaseApi
     /**
      * 刷新refresh_token
      * @param string $refresh_token
-     * @return Oauth
+     * @return Douyin
      */
-    public function renew_refresh_token(string $refresh_token)
+    public function renew_refresh_token($refresh_token)
     {
         $api_url = self::BASE_API . '/oauth/renew_refresh_token/';
         $params = [
