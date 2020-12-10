@@ -48,16 +48,6 @@ class BaseApi
         return $this;
     }
 
-    public function https_byte($url, $data = [])
-    {
-        $header = [
-            'Content-Type:multipart/form-data'
-        ];
-        $this->response = $this->https_request($url, $data, $header);
-
-        return $this;
-    }
-
     public function https_request($url, $data = null, $headers = null)
     {
         $curl = curl_init();
@@ -82,7 +72,7 @@ class BaseApi
         return ($output);
     }
 
-    function curl_upload_file($url, $file)
+    public function https_byte($url, $file)
     {
         $payload = '';
         $params = "--__X_PAW_BOUNDARY__\r\n"
