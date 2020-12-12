@@ -44,7 +44,6 @@ class BaseApi
             'Accept:application/json', 'Content-Type:application/json'
         ];
         $this->response = $this->https_request($url, json_encode($data), $header);
-
         return $this;
     }
 

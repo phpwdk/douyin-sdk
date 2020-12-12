@@ -7,7 +7,14 @@ use ByteDance\Douyin\Model\VideoDataBody;
 
 class Video extends BaseApi
 {
-    public function video_data_api($videoDataBody, $openid, $access_token)
+    /**
+     * @title 查询指定视频数据
+     * @param $item_ids
+     * @param $openid
+     * @param $access_token
+     * @return Video
+     */
+    public function video_data($item_ids, $openid, $access_token)
     {
         $api = self::BASE_API . '/video/data/';
         $params = [
@@ -16,16 +23,24 @@ class Video extends BaseApi
         ];
         $api = $api . '?' . http_build_query($params);
 
-        return $this->https_post($api, $videoDataBody, true);
+        return $this->https_post($api, $item_ids, true);
 
     }
 
-    public function video_list_get($openid, $access_token, $pagesize, $cursor = 0)
+    /**
+     * @title 查询授权账号视频数据
+     * @param $openid
+     * @param $access_token
+     * @param $page
+     * @param int $cursor
+     * @return Video
+     */
+    public function video_list($openid, $access_token, $page, $cursor = 0)
     {
         $params = [
             'open_id' => $openid,
             'access_token' => $access_token,
-            'count' => $pagesize,
+            'count' => $page,
             'cursor' => $cursor
         ];
         $url = self::BASE_API . '/video/list/';
@@ -61,6 +76,63 @@ class Video extends BaseApi
             'access_token' => $access_token,
             'video_id' => $video_id,
         ];
+        return $this->https_post($url, $params);
+    }
+
+    /**
+     * @title 初始化分片上传
+     * @param $open_id
+     * @param $access_token
+     * @return Video
+     */
+    public function video_part_init($open_id, $access_token)
+    {
+        $url = self::BASE_API . '/video/part/init/';
+        $params = [
+            'openid_id' => $open_id,
+            'access_token' => $access_token
+        ];
+        return $this->https_post($url, $params);
+    }
+
+    /**
+     * @title 上传视频分片到文件服务器
+     * @param $open_id
+     * @param $access_token
+     * @param $upload_id
+     * @param $part_number
+     * @param $video
+     * @return Video
+     */
+    public function video_part_upload($open_id, $access_token, $upload_id, $part_number, $video)
+    {
+        $params = [
+            'openid_id' => $open_id,
+            'access_token' => $access_token,
+            'upload_id' => $upload_id,
+            'part_number' => $part_number,
+        ];
+        $url = self::BASE_API . '/video/part/upload/' . '?' . http_build_query($params);
+
+        return $this->https_byte($url, $video);
+    }
+
+    /**
+     * @title 分片完成上传
+     * @param $open_id
+     * @param $access_token
+     * @param $upload_id
+     * @return Video
+     */
+    public function video_part_complete($open_id, $access_token, $upload_id)
+    {
+        $params = [
+            'openid_id' => $open_id,
+            'access_token' => $access_token,
+            'upload_id' => $upload_id
+        ];
+        $url = self::BASE_API . '/video/part/upload/';
+
         return $this->https_post($url, $params);
     }
 }

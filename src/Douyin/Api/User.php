@@ -21,7 +21,6 @@ class User extends  BaseApi
             'access_token'  => $access_token,
             'open_id'       => $openid
         ];
-
         return $this->https_get($api_url , $params);
     }
 
@@ -29,17 +28,39 @@ class User extends  BaseApi
      * 获取粉丝列表
      * @param string $openid
      * @param string $access_token
-     * @param string $pagesize
-     * @param string $offset
+     * @param int $page
+     * @param int $cursor
      * @return User
      */
-    public function fans($openid , $access_token , $pagesize , $offset){
+    public function fans($openid , $access_token , $page = 0 , $cursor = 30){
         $api_url = self::BASE_API . '/fans/list/';
-        return $this->https_get($api_url , [
+
+        $params = [
+            'open_id'   => $openid,
+            'access_token'  => $access_token,
+            'count'         => $page,
+            'cursor'        => $cursor
+        ];
+        return $this->https_get($api_url, $params);
+    }
+
+    /**
+     * 获取关注列表
+     * @param string $openid
+     * @param string $access_token
+     * @param int $page
+     * @param int $cursor
+     * @return User
+     */
+    public function following_list($openid , $access_token , $page = 0 , $cursor = 30){
+        $api_url = self::BASE_API . '/following/list/';
+
+        $params = [
             'open_id'   => $openid,
             'access_token'  => $access_token ,
-            'count'         => $pagesize,
-            'cursor'        => $offset
-        ]);
+            'count'         => $page,
+            'cursor'        => $cursor
+        ];
+        return $this->https_get($api_url, $params);
     }
 }
