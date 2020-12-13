@@ -100,6 +100,8 @@ class BaseApi
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
         $output = curl_exec($curl);
         curl_close($curl);
-        return ($output);
+
+        $result = json_decode($output, true);
+        return $result['data'];
     }
 }

@@ -23,7 +23,6 @@ class Video extends BaseApi
         $api = $api . '?' . http_build_query($params);
 
         return $this->https_post($api, $item_ids, true);
-
     }
 
     /**
@@ -34,17 +33,16 @@ class Video extends BaseApi
      * @param int $cursor
      * @return Video
      */
-    public function video_list($openid, $access_token, $page = 0, $cursor = 0)
+    public function video_list($openid, $access_token, $page = 0, $cursor = 10)
     {
         $params = [
             'open_id' => $openid,
             'access_token' => $access_token,
-            'count' => $page,
-            'cursor' => $cursor
+            'count' => $cursor,
+            'cursor' => $page
         ];
         $url = self::BASE_API . '/video/list/';
         return $this->https_get($url, $params);
-
     }
 
     /**
@@ -69,10 +67,8 @@ class Video extends BaseApi
      */
     public function video_create($open_id, $access_token, $video_id)
     {
-        $url = self::BASE_API . '/video/create/';
+        $url = self::BASE_API . '/video/create/?open_id=' . $open_id . '&access_token=' . $access_token;
         $params = [
-            'openid_id' => $open_id,
-            'access_token' => $access_token,
             'video_id' => $video_id,
         ];
         return $this->https_post($url, $params);
