@@ -7,7 +7,7 @@ use ByteDance\Kernel\DataArray;
  * @package ByteDance
  *
  * ----Douyin---
- * @method \ByteDance\Douyin Oauth($scope, $redirect_url, $state = "") static 扫码授权
+ * @method \ByteDance\Douyin Oauth($options = []) static 扫码授权
  */
 class Dy
 {
