@@ -1,10 +1,9 @@
 <?php
 
-namespace ByteDance\Douyin\Api;
+namespace ByteDance;
 
-use ByteDance\ApiExcepion;
-use ByteDance\Douyin\Kernel\BaseApi;
 use Curl\Curl;
+use Kernel\BaseApi;
 
 class Douyin extends BaseApi
 {

@@ -1,8 +1,7 @@
 <?php
 
-namespace ByteDance\Douyin\Kernel;
+namespace Kernel;
 
-use ByteDance\ApiExcepion;
 
 /**
  * 内核
@@ -35,7 +34,8 @@ class BaseApi
             $url = $url . '?' . http_build_query($params);
         }
         $this->response = $this->https_request($url);
-        return $this;
+        $result = json_decode($this->response, true);
+        return $result['data'];
     }
 
     public function https_post($url, $data = [], $is_raw = false)
@@ -44,7 +44,8 @@ class BaseApi
             'Accept:application/json', 'Content-Type:application/json'
         ];
         $this->response = $this->https_request($url, json_encode($data), $header);
-        return $this;
+        $result = json_decode($this->response, true);
+        return $result['data'];
     }
 
     public function https_request($url, $data = null, $headers = null)
