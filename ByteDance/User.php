@@ -1,9 +1,8 @@
 <?php
 
-namespace ByteDance\Douyin\Api;
+namespace ByteDance;
 
-use Kernel\BaseApi;
-use Curl\Curl;
+use ByteDance\Kernel\BaseApi;
 
 class User extends BaseApi
 {

@@ -8,6 +8,7 @@ use ByteDance\Kernel\DataArray;
  *
  * ----Douyin---
  * @method \ByteDance\Douyin Oauth($options = []) static 扫码授权
+ * @method \ByteDance\User User($options = []) static 用户操作
  */
 class Dy
 {
