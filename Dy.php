@@ -1,7 +1,6 @@
 <?php
 
 use ByteDance\Kernel\DataArray;
-use WeChat\Exceptions\InvalidInstanceException;
 
 /**
  * Class Dy
@@ -40,7 +39,7 @@ class Dy
      * @param $name
      * @param $arguments
      * @return mixed
-     * @throws InvalidInstanceException
+     * @throws Exception
      */
     public static function __callStatic($name , $arguments)
     {
@@ -53,6 +52,6 @@ class Dy
             return new $class($config);
         }
 
-        throw new InvalidInstanceException("class {$name} not found");
+        throw new Exception("class {$name} not found");
     }
 }
