@@ -7,8 +7,10 @@ use ByteDance\Kernel\DataArray;
  * @package ByteDance
  *
  * ----Douyin---
- * @method \ByteDance\Douyin Oauth($options = []) static 扫码授权
+ * @method \ByteDance\Oauth Oauth($options = []) static 扫码授权
  * @method \ByteDance\User User($options = []) static 用户操作
+ * @method \ByteDance\Video Video($options = []) static 视频操作
+ * @method \ByteDance\Toutiao Toutiao($options = []) static 头条操作
  */
 class Dy
 {
@@ -40,7 +42,6 @@ class Dy
      * @param $name
      * @param $arguments
      * @return mixed
-     * @throws Exception
      */
     public static function __callStatic($name , $arguments)
     {
@@ -52,7 +53,5 @@ class Dy
             $config = is_array($option) ? $option : self::$config->get();
             return new $class($config);
         }
-
-        throw new Exception("class {$name} not found");
     }
 }

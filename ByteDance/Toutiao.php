@@ -2,7 +2,7 @@
 
 namespace ByteDance;
 
-use Kernel\BaseApi;
+use ByteDance\Kernel\BaseApi;
 
 class Toutiao extends BaseApi
 {

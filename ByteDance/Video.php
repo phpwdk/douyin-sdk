@@ -1,6 +1,6 @@
 <?php
 
-namespace ByteDance\Douyin\Api;
+namespace ByteDance;
 
 use ByteDance\Kernel\BaseApi;
 
@@ -34,7 +34,7 @@ class Video extends BaseApi
      * @param int $cursor
      * @return Video
      */
-    public function video_list($openid, $access_token, $page, $cursor = 0)
+    public function video_list($openid, $access_token, $page = 0, $cursor = 0)
     {
         $params = [
             'open_id' => $openid,
