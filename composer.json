@@ -11,8 +11,11 @@
         "php": ">=5.6"
     },
     "autoload": {
+        "classmap": [
+            "Dy.php"
+        ],
         "psr-4": {
-            "ByteDance\\": "src/"
+            "ByteDance\\": "ByteDance/"
         }
     }
 }
