@@ -12,14 +12,14 @@ class User extends BaseApi
      * @param string $openid
      * @return User
      */
-    public function userinfo($access_token , $openid){
-        $api_url = self::BASE_API . '/oauth/userinfo/';
-
+    public function userinfo($access_token, $openid)
+    {
+        $api_url = self::BASE_API . '/user/userinfo/';
         $params = [
-            'access_token'  => $access_token,
-            'open_id'       => $openid
+            'access_token' => $access_token,
+            'open_id' => $openid
         ];
-        return $this->https_get($api_url , $params);
+        return $this->cloud_http_post($api_url, $params);
     }
 
     /**
@@ -30,16 +30,16 @@ class User extends BaseApi
      * @param int $cursor
      * @return User
      */
-    public function fans($openid , $access_token , $page = 0 , $cursor = 30){
+    public function fans($openid, $access_token, $page = 0, $cursor = 30)
+    {
         $api_url = self::BASE_API . '/fans/list/';
-
         $params = [
-            'open_id'   => $openid,
-            'access_token'  => $access_token,
-            'count'         => $page,
-            'cursor'        => $cursor
+            'open_id' => $openid,
+            'access_token' => $access_token,
+            'count' => $cursor,
+            'cursor' => $page
         ];
-        return $this->https_get($api_url, $params);
+        return $this->cloud_http_post($api_url, $params);
     }
 
     /**
@@ -50,15 +50,26 @@ class User extends BaseApi
      * @param int $cursor
      * @return User
      */
-    public function following_list($openid , $access_token , $page = 0 , $cursor = 30){
+    public function following_list($openid, $access_token, $page = 0, $cursor = 30)
+    {
         $api_url = self::BASE_API . '/following/list/';
-
         $params = [
-            'open_id'   => $openid,
-            'access_token'  => $access_token ,
-            'count'         => $page,
-            'cursor'        => $cursor
+            'open_id' => $openid,
+            'access_token' => $access_token,
+            'count' => $cursor,
+            'cursor' => $page
         ];
-        return $this->https_get($api_url, $params);
+        return $this->cloud_http_post($api_url, $params);
+    }
+
+    /**
+     * 解密手机号
+     */
+    public function decryptMobile($encryptedData)
+    {
+        $api_url = self::BASE_API . '/user/decrypt_mobile/';
+        $params = ['encrypted_data' => $encryptedData];
+        $result = $this->cloud_http_post($api_url, $params);
+        return $result['code'] === 1 ? $result['data'] : '';
     }
 }

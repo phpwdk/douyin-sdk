@@ -10,10 +10,12 @@ namespace ByteDance\Kernel;
  */
 class BaseApi
 {
-    const BASE_API = "https://open.douyin.com";
-    const BASE_TOUTIAO_API = "https://open.snssdk.com";
+    const BASE_API = "http://cloud.huijibaoman.com/douyin";
+    const BASE_TOUTIAO_API = "http://cloud.huijibaoman.com/toutiao";
+    const DEMO_BASE_API = "https://open.douyin.com";
     public $client_key = null;
     public $client_secret = null;
+    public $client_authcode = null;
 
     public $response = null;
 
@@ -21,6 +23,7 @@ class BaseApi
     {
         $this->client_key = $config['client_key'];
         $this->client_secret = $config['client_secret'];
+        $this->client_authcode = $config['client_authcode'];
     }
 
     public function toArray()
@@ -28,24 +31,13 @@ class BaseApi
         return $this->response ? json_decode($this->response, true) : true;
     }
 
-    public function https_get($url, $params = [])
+    public function cloud_http_post($url, $data = [])
     {
-        if ($params) {
-            $url = $url . '?' . http_build_query($params);
-        }
-        $this->response = $this->https_request($url);
-        $result = json_decode($this->response, true);
-        return $result['data'];
-    }
-
-    public function https_post($url, $data = [], $is_raw = false)
-    {
-        $header = [
-            'Accept:application/json', 'Content-Type:application/json'
-        ];
-        $this->response = $this->https_request($url, json_encode($data), $header);
-        $result = json_decode($this->response, true);
-        return $result['data'];
+        $data['client_authcode'] = $this->client_authcode;
+        $data['client_key'] = $this->client_key;
+        $data['client_secret'] = $this->client_secret;
+        $result = $this->https_request($url, $data);
+        return json_decode($result, true);
     }
 
     public function https_request($url, $data = null, $headers = null)
@@ -63,7 +55,6 @@ class BaseApi
         if (!empty($headers)) {
             curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
         }
-        //设置curl默认访问为IPv4
         if (defined('CURLOPT_IPRESOLVE') && defined('CURL_IPRESOLVE_V4')) {
             curl_setopt($curl, CURLOPT_IPRESOLVE, CURL_IPRESOLVE_V4);
         }
@@ -98,6 +89,11 @@ class BaseApi
         curl_setopt($curl, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_0);
         curl_setopt($curl, CURLOPT_HTTPHEADER, $request_headers);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, FALSE);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, FALSE);
+        if (defined('CURLOPT_IPRESOLVE') && defined('CURL_IPRESOLVE_V4')) {
+            curl_setopt($curl, CURLOPT_IPRESOLVE, CURL_IPRESOLVE_V4);
+        }
         $output = curl_exec($curl);
         curl_close($curl);
 

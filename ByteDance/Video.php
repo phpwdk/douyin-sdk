@@ -11,18 +11,18 @@ class Video extends BaseApi
      * @param $item_ids
      * @param $openid
      * @param $access_token
-     * @return Video
+     * @return array
      */
     public function video_data($item_ids, $openid, $access_token)
     {
-        $api = self::BASE_API . '/video/data/';
+        $dyapi = self::BASE_API . '/video/video_data/';
         $params = [
             'open_id' => $openid,
-            'access_token' => $access_token
+            'access_token' => $access_token,
+            'item_ids' => implode(',', !empty($item_ids) ? $item_ids : [])
         ];
-        $api = $api . '?' . http_build_query($params);
 
-        return $this->https_post($api, $item_ids, true);
+        return $this->cloud_http_post($dyapi, $params);
     }
 
     /**
@@ -31,18 +31,18 @@ class Video extends BaseApi
      * @param $access_token
      * @param $page
      * @param int $cursor
-     * @return Video
+     * @return array
      */
     public function video_list($openid, $access_token, $page = 0, $cursor = 10)
     {
+        $dyapi = self::BASE_API . '/video/video_list/';
         $params = [
             'open_id' => $openid,
             'access_token' => $access_token,
             'count' => $cursor,
             'cursor' => $page
         ];
-        $url = self::BASE_API . '/video/list/';
-        return $this->https_get($url, $params);
+        return $this->cloud_http_post($dyapi, $params);
     }
 
     /**
@@ -50,12 +50,12 @@ class Video extends BaseApi
      * @param $open_id
      * @param $access_token
      * @param $file
-     * @return Video
+     * @return array
      */
     public function video_upload($open_id, $access_token, $file)
     {
-        $url = self::BASE_API . '/video/upload/?open_id=' . $open_id . '&access_token=' . $access_token;
-        return $this->https_byte($url, $file);
+        $dyapi = self::DEMO_BASE_API . '/video/upload/?open_id=' . $open_id . '&access_token=' . $access_token;
+        return $this->https_byte($dyapi, $file);
     }
 
     /**
@@ -63,31 +63,61 @@ class Video extends BaseApi
      * @param $open_id
      * @param $access_token
      * @param $video_id
-     * @return Video
+     * @param string $text
+     * @param string $at_users
+     * @return array
      */
-    public function video_create($open_id, $access_token, $video_id)
+    public function video_create($open_id, $access_token, $video_id, $text = '', $othes = [])
     {
-        $url = self::BASE_API . '/video/create/?open_id=' . $open_id . '&access_token=' . $access_token;
+        $dyapi = self::BASE_API . '/video/video_create/';
         $params = [
+            'open_id' => $open_id,
+            'access_token' => $access_token,
             'video_id' => $video_id,
+            'text' => $text,
+            'poi_name' => !empty($othes['poi_name']) ? $othes['poi_name'] : '',
+            'poi_share' => !empty($othes['poi_share']) ? $othes['poi_share'] : '',
+            'real_share' => !empty($othes['real_share']) ? $othes['real_share'] : '',
+            'real_openid' => !empty($othes['real_openid']) ? $othes['real_openid'] : '',
+            'micro_app_id' => !empty($othes['micro_app_id']) ? $othes['micro_app_id'] : '',
+            'micro_app_title' => !empty($othes['micro_app_title']) ? $othes['micro_app_title'] : '',
+            'micro_app_url' => !empty($othes['micro_app_url']) ? $othes['micro_app_url'] : '',
         ];
-        return $this->https_post($url, $params);
+        return $this->cloud_http_post($dyapi, $params);
+    }
+
+    /**
+     * @title 删除视频
+     * @param $open_id
+     * @param $access_token
+     * @param $item_id
+     * @return array
+     */
+    public function video_delete($open_id, $access_token, $item_id)
+    {
+        $dyapi = self::BASE_API . '/video/video_delete/';
+        $params = [
+            'open_id' => $open_id,
+            'access_token' => $access_token,
+            'item_id' => $item_id,
+        ];
+        return $this->cloud_http_post($dyapi, $params);
     }
 
     /**
      * @title 初始化分片上传
      * @param $open_id
      * @param $access_token
-     * @return Video
+     * @return array
      */
     public function video_part_init($open_id, $access_token)
     {
-        $url = self::BASE_API . '/video/part/init/';
+        $dyapi = self::BASE_API . '/video/video_part_init/';
         $params = [
             'openid_id' => $open_id,
             'access_token' => $access_token
         ];
-        return $this->https_post($url, $params);
+        return $this->cloud_http_post($dyapi, $params);
     }
 
     /**
@@ -97,7 +127,7 @@ class Video extends BaseApi
      * @param $upload_id
      * @param $part_number
      * @param $video
-     * @return Video
+     * @return array
      */
     public function video_part_upload($open_id, $access_token, $upload_id, $part_number, $video)
     {
@@ -107,9 +137,9 @@ class Video extends BaseApi
             'upload_id' => $upload_id,
             'part_number' => $part_number,
         ];
-        $url = self::BASE_API . '/video/part/upload/' . '?' . http_build_query($params);
+        $dyapi = self::BASE_API . '/video/video_part_upload/' . '?' . http_build_query($params);
 
-        return $this->https_byte($url, $video);
+        return $this->cloud_http_post($dyapi, $video);
     }
 
     /**
@@ -117,7 +147,7 @@ class Video extends BaseApi
      * @param $open_id
      * @param $access_token
      * @param $upload_id
-     * @return Video
+     * @return array
      */
     public function video_part_complete($open_id, $access_token, $upload_id)
     {
@@ -126,8 +156,8 @@ class Video extends BaseApi
             'access_token' => $access_token,
             'upload_id' => $upload_id
         ];
-        $url = self::BASE_API . '/video/part/upload/';
+        $dyapi = self::BASE_API . '/video/video_part_upload/';
 
-        return $this->https_post($url, $params);
+        return $this->cloud_http_post($dyapi, $params);
     }
 }

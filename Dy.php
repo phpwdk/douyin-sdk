@@ -8,9 +8,11 @@ use ByteDance\Kernel\DataArray;
  *
  * ----Douyin---
  * @method \ByteDance\Oauth Oauth($options = []) static 扫码授权
+ * @method \ByteDance\Poi Poi($options = []) static 商铺接入
  * @method \ByteDance\User User($options = []) static 用户操作
  * @method \ByteDance\Video Video($options = []) static 视频操作
  * @method \ByteDance\Toutiao Toutiao($options = []) static 头条操作
+ * @method \ByteDance\Othe Othe($options = []) static 其它操作
  */
 class Dy
 {
