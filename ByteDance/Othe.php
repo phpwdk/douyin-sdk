@@ -9,6 +9,7 @@ class Othe extends BaseApi
     /**
      * 获取抖音信息
      * @param $real_share
+     * @param int $is_iphone
      * @return mixed
      */
     public function get_rela_share($real_share, $is_iphone = 0)
