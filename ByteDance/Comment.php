@@ -1,9 +1,13 @@
 <?php
-
 namespace ByteDance;
 
 use ByteDance\Kernel\BaseApi;
 
+/**
+ * 用户评论管理
+ * Class Comment
+ * @package ByteDance
+ */
 class Comment extends BaseApi
 {
     /**
