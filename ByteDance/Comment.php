@@ -20,7 +20,7 @@ class Comment extends BaseApi
      */
     public function reply($access_token, $openid, $item_id, $content)
     {
-        $dyapi = self::BASE_API . '/video/video_data/';
+        $dyapi = self::BASE_API . '/comment/reply/';
         $params = [
             'open_id' => $openid,
             'access_token' => $access_token,
