@@ -43,6 +43,24 @@ class User extends BaseApi
     }
 
     /**
+     * 判断粉丝
+     * @param string $openid
+     * @param string $access_token
+     * @param string $follower_open_id
+     * @return User
+     */
+    public function fans_check($openid, $access_token, $follower_open_id)
+    {
+        $api_url = self::BASE_API . '/fans/check/';
+        $params = [
+            'open_id' => $openid,
+            'access_token' => $access_token,
+            'follower_open_id' => $follower_open_id
+        ];
+        return $this->cloud_http_post($api_url, $params);
+    }
+
+    /**
      * 获取关注列表
      * @param string $openid
      * @param string $access_token
